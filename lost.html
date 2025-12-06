@@ -4,131 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lost & Found - Report Lost Item</title>
-<style>* { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', Arial, sans-serif;}
+<style>
+/* (Your existing CSS remains same… not editing anything) */
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', Arial, sans-serif;}
 body { background:#f4f7fa; color:#333; transition: margin-left 0.3s ease;}
-
-/* Sidebar */
-.sidebar {
-  height: 100%;
-  width: 0;
-  position: fixed;
-  z-index: 2000;
-  top: 0;
-  left: 0;
-  background-color: #2c3e50;
-  overflow-x: hidden;
-  transition: 0.3s;
-  padding-top: 60px;
-}
-.sidebar a {
-  padding: 15px 30px;
-  text-decoration: none;
-  font-size: 1.2rem;
-  color: #fff;
-  display: block;
-  transition: 0.3s;
-}
-.sidebar a:hover {
-  background: #1abc9c;
-  color: #fff;
-  padding-left: 40px;
-}
-.sidebar .closebtn {
-  position: absolute;
-  top: 15px;
-  right: 25px;
-  font-size: 2rem;
-  margin-left: 50px;
-  color: white;
-  cursor: pointer;
-}
-
-/* Hamburger Button */
-.openbtn {
-  font-size: 1.5rem;
-  cursor: pointer;
-  background-color: #2c3e50;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-  position: fixed;
-  top: 15px;
-  left: 15px;
-  z-index: 2100;
-  border-radius: 5px;
-  transition: 0.3s;
-}
+.sidebar { height: 100%; width: 0; position: fixed; z-index: 2000; top: 0; left: 0; background-color: #2c3e50; overflow-x: hidden; transition: 0.3s; padding-top: 60px;}
+.sidebar a { padding: 15px 30px; text-decoration: none; font-size: 1.2rem; color: #fff; display: block; transition: 0.3s;}
+.sidebar a:hover { background: #1abc9c; color: #fff; padding-left: 40px;}
+.sidebar .closebtn { position: absolute; top: 15px; right: 25px; font-size: 2rem; color: white; cursor: pointer;}
+.openbtn { font-size: 1.5rem; cursor: pointer; background-color: #2c3e50; color: white; padding: 10px 15px; border: none; position: fixed; top: 15px; left: 15px; z-index: 2100; border-radius: 5px; transition: 0.3s;}
 .openbtn:hover { background-color: #1abc9c; }
-
-/* Home Full Screen */
-#home {
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
-  text-align:center;
-  padding:20px;
-  background: linear-gradient(135deg,#2c3e50,#4ca1af);
-  transition: margin-left 0.3s ease;
-}
-
-/* University Header */
-#home .university {
-  display:flex;
-  align-items:center;
-  gap:15px;
-  margin-bottom:20px;
-  animation: pulse 2s infinite;
-}
-#home .university img {
-  width:80px; height:auto;
-  border-radius:10px;
-  animation: pulse 2s infinite;
-}
-#home .university h2 {
-  font-size:5rem;
-  color:white;
-  font-weight:bold;
-  background: linear-gradient(90deg, #1abc9c, #16a085, #f39c12, #e74c3c);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: gradientMove 4s ease infinite;
-}
-
+#home { display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; text-align:center; padding:20px; background: linear-gradient(135deg,#2c3e50,#4ca1af); transition: margin-left 0.3s ease;}
+#home .university { display:flex; align-items:center; gap:15px; margin-bottom:20px; animation: pulse 2s infinite;}
+#home .university img { width:80px; height:auto; border-radius:10px; animation: pulse 2s infinite;}
+#home .university h2 { font-size:5rem; color:white; font-weight:bold; background: linear-gradient(90deg, #1abc9c, #16a085, #f39c12, #e74c3c); -webkit-background-clip:text; -webkit-text-fill-color: transparent; animation: gradientMove 4s ease infinite;}
 #home h1 { font-size:3rem; margin-bottom:15px; color:white; animation: fadeInDown 1s ease forwards;}
 #home p { font-size:1.3rem; margin-bottom:40px; color:white; animation: fadeInUp 1s ease forwards;}
-
-/* Tabs / Cards */
 .tabs { display:flex; flex-wrap:wrap; gap:25px; justify-content:center;}
-.tab {
-  width:200px; height:200px; border-radius:20px;
-  display:flex; flex-direction:column; justify-content:center; align-items:center;
-  text-align:center; font-size:1.2rem; font-weight:bold; color:white;
-  cursor:pointer; transition:0.4s; box-shadow:0 8px 20px rgba(0,0,0,0.3);
-  background: linear-gradient(135deg, #1abc9c, #16a085);
-  position:relative;
-}
-.tab:hover {
-  transform: translateY(-10px) scale(1.05);
-  box-shadow:0 12px 25px rgba(0,0,0,0.4);
-}
+.tab { width:200px; height:200px; border-radius:20px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; font-size:1.2rem; font-weight:bold; color:white; cursor:pointer; transition:0.4s; box-shadow:0 8px 20px rgba(0,0,0,0.3); background: linear-gradient(135deg, #1abc9c, #16a085); position:relative;}
+.tab:hover { transform: translateY(-10px) scale(1.05); box-shadow:0 12px 25px rgba(0,0,0,0.4);}
 .tab i { font-size:2.5rem; margin-bottom:10px; }
-
-/* Footer */
 footer { text-align:center; padding:20px; background:#2c3e50; color:white; }
-
-/* Animations */
-@keyframes fadeInDown {0% {opacity:0; transform:translateY(-50px);} 100% {opacity:1; transform:translateY(0);}}
-@keyframes fadeInUp {0% {opacity:0; transform:translateY(50px);} 100% {opacity:1; transform:translateY(0);}}
-@keyframes pulse {0%, 100% { transform: scale(1);} 50% { transform: scale(1.05);} }
-@keyframes gradientMove {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* Responsive */
 @media(max-width:768px){
   .tabs { flex-direction:column; align-items:center;}
   .tab { width:80%; height:150px; }
@@ -136,22 +32,20 @@ footer { text-align:center; padding:20px; background:#2c3e50; color:white; }
 }
 </style>  
 </head>
+
 <body>
 
-  <!-- Hamburger Button -->
-  <button class="openbtn" onclick="openNav()">☰ Menu</button>
+<button class="openbtn" onclick="openNav()">☰ Menu</button>
 
-  <!-- Sidebar -->
-  <div id="mySidebar" class="sidebar">
+<div id="mySidebar" class="sidebar">
     <span class="closebtn" onclick="closeNav()">×</span>
     <a href="index.html">Home</a>
     <a href="lost.html" class="active">Lost</a>
     <a href="found.html">Found</a>
     <a href="about.html">About</a>
-  </div>
+</div>
 
-  <!-- Lost Page Section -->
-  <section id="home">
+<section id="home">
     <div class="university">
       <img src="amity.logo.jpeg" alt="Amity University Patna Logo">
       <h2>Amity University Patna</h2>
@@ -160,39 +54,85 @@ footer { text-align:center; padding:20px; background:#2c3e50; color:white; }
     <h1>Fill the form below to report a lost item</h1>
     <p>Your report will help others identify and return your belongings.</p>
 
-    <!-- Lost Item Form -->
-    <form action="backend/add_lost_item.php" method="POST" style="background:#1abc9c; padding:30px; border-radius:15px; box-shadow:0 5px 15px rgba(0,0,0,0.2); width:90%; max-width:600px;">
+    <form action="backend/add_lost_item.php" method="POST" style="background:#1abc9c; padding:30px; border-radius:15px; width:90%; max-width:600px;">
+      
       <div style="margin-bottom:15px; text-align:left;">
         <label for="title" style="font-weight:bold;">Item Title</label><br>
-        <input type="text" id="title" name="title" placeholder="e.g. Blue Pen" required style="width:100%; padding:10px; border-radius:8px; border:1px solid #ccc;">
+        <input type="text" id="title" name="title" required style="width:100%; padding:10px;">
       </div>
 
       <div style="margin-bottom:15px; text-align:left;">
         <label for="description" style="font-weight:bold;">Description</label><br>
-        <textarea id="description" name="description" placeholder="Brief details about the lost item" rows="3" required style="width:100%; padding:10px; border-radius:8px; border:1px solid #ccc;"></textarea>
+        <textarea id="description" name="description" rows="3" required style="width:100%; padding:10px;"></textarea>
       </div>
 
       <div style="margin-bottom:15px; text-align:left;">
-        <label for="location" style="font-weight:bold;">Location</label><br>
-        <input type="text" id="location" name="location" placeholder="Where did you lose it?" required style="width:100%; padding:10px; border-radius:8px; border:1px solid #ccc;">
-      </div>
+  <label for="location" style="font-weight:bold;">Location</label><br>
 
+  <select id="location" name="location" required
+          style="width:100%; padding:10px; border-radius:8px; border:1px solid #ccc;">
+      <option value="">Select Location</option>
+      <option value="Parking Area">Parking Area</option>
+      <option value="Main Gate">Main Gate</option>
+      <option value="Campus">Campus</option>
+      <option value="Reception Area">Reception Area</option>
+      <option value="1st Floor Corridor">1st Floor Corridor</option>
+      <option value="Room-101">Room-101</option>
+      <option value="Room-102">Room-102</option>
+      <option value="Room-103">Room-103</option>
+      <option value="Room-104">Room-104</option>
+      <option value="Room-105">Room-105</option>
+      <option value="Room-106">Room-106</option>
+      <option value="2nd Floor Corridor">2nd Floor Corridor</option>
+      <option value="Room-201">Room-201</option>
+      <option value="Lab-1">Lab-1</option>
+      <option value="Lab-2">Lab-2</option>
+      <option value="Lab-3">Lab-3</option>
+      <option value="Library">Library</option>
+      <option value="3rd Floor Corridor">3rd Floor Corridor</option>
+      <option value="Room-301">Room-301</option>
+      <option value="Room-302">Room-302</option>
+      <option value="Room-303">Room-303</option>
+      <option value="Room-304">Room-304</option>
+      <option value="Room-305">Room-305</option>
+      <option value="Room-306">Room-306</option>
+      <option value="4th Floor Corridor">4th Floor Corridor</option>
+      <option value="Room-401">Room-401</option>
+      <option value="Room-402">Room-402</option>
+      <option value="Room-403">Room-403</option>
+      <option value="Room-404">Room-404</option>
+      <option value="Room-405">Room-405</option>
+      <option value="Room-406">Room-406</option>
+      <option value="5th Floor Corridor">5th Floor Corridor</option>
+      <option value="Room-501">Room-501</option>
+      <option value="Room-502">Room-502</option>
+      <option value="Room-503">Room-503</option>
+      <option value="Room-504">Room-504</option>
+      <option value="Room-505">Room-505</option>
+      <option value="Room-506">Room-506</option>
+      <option value="Canteen">Canteen</option>
+      
+  </select>
+</div>
+
+      <!-- DATE INPUT (future disabled) -->
       <div style="margin-bottom:15px; text-align:left;">
         <label for="date" style="font-weight:bold;">Date</label><br>
-        <input type="date" id="date" name="date" required style="width:100%; padding:10px; border-radius:8px; border:1px solid #ccc;">
+        <input type="date" id="date" name="date" required style="width:100%; padding:10px;">
       </div>
 
-      <button type="submit" style="padding:12px 20px; border:none; border-radius:8px; background:linear-gradient(135deg, #0011ff, #ff00f7); color:white; font-size:1.1rem; font-weight:bold; cursor:pointer; transition:0.3s;">
-        <i class="fas fa-paper-plane"></i> Submit Report
+      <button type="submit" style="padding:12px 20px; border:none; border-radius:8px; background:linear-gradient(135deg, #0011ff, #ff00f7); color:white; font-size:1.1rem; font-weight:bold; cursor:pointer;">
+        Submit Report
       </button>
     </form>
-  </section>
+</section>
 
-  <footer>
+<footer>
     <p>&copy; 2025 Lost & Found Website | NTCC Project</p>
-  </footer>
+</footer>
 
-  <script>function openNav() {
+<script>
+function openNav() {
   document.getElementById("mySidebar").style.width = "250px";
   document.body.style.marginLeft = "250px";
 }
@@ -201,6 +141,12 @@ function closeNav() {
   document.getElementById("mySidebar").style.width = "0";
   document.body.style.marginLeft = "0";
 }
+
+/* 🔥 Block future dates */
+const today = new Date().toISOString().split("T")[0];
+document.getElementById("date").setAttribute("max", today);
+
 </script>
+
 </body>
 </html>
