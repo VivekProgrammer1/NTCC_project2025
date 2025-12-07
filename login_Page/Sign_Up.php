@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 // Enable error reporting
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -9,7 +11,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $conn = new mysqli("localhost", "root", "", "sign_up_system");
     if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
 
-    // Corrected name attributes for PHP (no spaces)
     $name = trim($_POST['name']);
     $email = trim($_POST['email']);
     $phone_no = trim($_POST['phone_no']);
@@ -17,13 +18,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password_input = $_POST['password'];
     $confirm_password = $_POST['confirm_password'];
 
-    // Password match check
     if ($password_input !== $confirm_password) {
         $message = "❌ Passwords do not match!";
     } else {
         $hashed_password = password_hash($password_input, PASSWORD_DEFAULT);
 
-        // Check duplicates
         $check_sql = "SELECT * FROM users WHERE email=? OR enrollment_no=?";
         $stmt = $conn->prepare($check_sql);
         $stmt->bind_param("ss", $email, $enrollment_no);
@@ -38,8 +37,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $insert_stmt->bind_param("sssss", $name, $email, $phone_no, $enrollment_no, $hashed_password);
 
             if ($insert_stmt->execute()) {
-                $message = "✅ Sign Up successful!";
-                $_POST = array(); // clear form after success
+                // ✅ Signup successful → Set session to auto-login
+                $_SESSION['user_name'] = $name;
+                $_SESSION['user_email'] = $email;
+
+                header("Location: ../index.php"); // redirect to home page
+                exit;
             } else {
                 $message = "❌ Insert Error: " . $conn->error;
             }
@@ -57,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sign Up</title>
-<link rel="stylesheet" href="sign_up.css"> <!-- keep your old CSS -->
+<link rel="stylesheet" href="sign_up.css">
 <style>
 .message { text-align:center; font-weight:bold; margin-bottom:15px; }
 .message.success { color:green; }
@@ -69,7 +72,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="signup-box">
         <h2 class="signup-title">Sign Up</h2>
 
-        <!-- ✅ Only show message after form submission -->
         <?php if($_SERVER['REQUEST_METHOD'] == 'POST' && $message != ""): ?>
         <div class="message <?php echo strpos($message,'✅')!==false?'success':'error'; ?>">
             <?php echo $message; ?>
@@ -107,6 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
             <button name="submit" type="submit">Sign Up</button>
         </form>
+        <p style="text-align:center; margin-top:15px;">Already have an account? <a href="sign_In.php" style="color red;">Sign In</a></p>
     </div>
 </div>
 </body>

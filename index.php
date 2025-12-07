@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 ?>
 
@@ -9,11 +9,11 @@ session_start();
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lost & Found - Home</title>
   <link rel="stylesheet" href="style.css">
-
   <style>
     * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', Arial, sans-serif;}
     body { background:#f4f7fa; color:#333; transition: margin-left 0.3s ease;}
 
+    /* Sidebar */
     .sidebar {
       height: 100%;
       width: 0;
@@ -49,6 +49,7 @@ session_start();
       cursor: pointer;
     }
 
+    /* Hamburger Button */
     .openbtn {
       font-size: 1.5rem;
       cursor: pointer;
@@ -65,8 +66,8 @@ session_start();
     }
     .openbtn:hover { background-color: #1abc9c; }
 
-    /* Auth Buttons / Profile */
-    .auth-buttons {
+    /* Auth / Profile */
+    .auth-buttons, .profile-dropdown {
       position: fixed;
       top: 15px;
       right: 20px;
@@ -74,32 +75,49 @@ session_start();
       display: flex;
       gap: 10px;
     }
-    .auth-buttons a {
+    .auth-buttons a, .profile-dropdown button {
       text-decoration: none;
       padding: 8px 15px;
       border-radius: 5px;
       font-size: 0.9rem;
       font-weight: bold;
       transition: 0.3s;
+      border: none;
+      cursor: pointer;
     }
-    .signin { background:#2c3e50; color:white; }
-    .signup { background:#1abc9c; color:white; }
-    .signin:hover { background:#1abc9c; }
-    .signup:hover { background:#16a085; }
+    .auth-buttons .signin { background: #2c3e50; color: #fff; }
+    .auth-buttons .signin:hover { background: #1abc9c; }
+    .auth-buttons .signup { background: #1abc9c; color: #fff; }
+    .auth-buttons .signup:hover { background: #16a085; }
 
-    .profile-btn {
-      background:#1abc9c;
-      color:white;
-      padding:8px 15px;
-      font-weight:bold;
-      border-radius:5px;
-      cursor:pointer;
-      text-decoration:none;
+    .profile-dropdown button {
+      background: #2c3e50; color: #fff;
+      position: relative;
     }
-    .profile-btn:hover {
-      background:#16a085;
-    }
+    .profile-dropdown button:hover { background: #1abc9c; }
 
+    .profile-dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+      z-index: 2200;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    .profile-dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+    .profile-dropdown-content a:hover { background-color: #ddd; }
+
+    .profile-dropdown:hover .profile-dropdown-content { display: block; }
+
+    /* Home Full Screen */
     #home {
       display:flex;
       flex-direction:column;
@@ -109,6 +127,7 @@ session_start();
       text-align:center;
       padding:20px;
       background: linear-gradient(135deg,#2c3e50,#4ca1af);
+      transition: margin-left 0.3s ease;
     }
 
     #home .university {
@@ -116,52 +135,79 @@ session_start();
       align-items:center;
       gap:15px;
       margin-bottom:20px;
+      animation: pulse 2s infinite;
     }
-    #home .university img { width:80px; border-radius:10px; }
+    #home .university img {
+      width:80px; height:auto;
+      border-radius:10px;
+      animation: pulse 2s infinite;
+    }
     #home .university h2 {
       font-size:5rem;
       color:white;
       font-weight:bold;
+      background: linear-gradient(90deg, #1abc9c, #16a085, #f39c12, #e74c3c);
+      -webkit-background-clip:text; 
+      -webkit-text-fill-color: transparent;
+      animation: gradientMove 4s ease infinite;
     }
 
-    #home h1 { font-size:3rem; margin-bottom:15px; color:white;}
-    #home p { font-size:1.3rem; margin-bottom:40px; color:white;}
+    #home h1 { font-size:3rem; margin-bottom:15px; color:white; animation: fadeInDown 1s ease forwards;}
+    #home p { font-size:1.3rem; margin-bottom:40px; color:white; animation: fadeInUp 1s ease forwards;}
 
+    /* Tabs / Cards */
     .tabs { display:flex; flex-wrap:wrap; gap:25px; justify-content:center;}
     .tab {
       width:200px; height:200px; border-radius:20px;
       display:flex; flex-direction:column; justify-content:center; align-items:center;
       text-align:center; font-size:1.2rem; font-weight:bold; color:white;
-      cursor:pointer; transition:0.4s;
-      box-shadow:0 8px 20px rgba(0,0,0,0.3);
+      cursor:pointer; transition:0.4s; box-shadow:0 8px 20px rgba(0,0,0,0.3);
       background: linear-gradient(135deg, #1abc9c, #16a085);
+      position:relative;
     }
-    .tab:hover { transform: translateY(-10px) scale(1.05); }
+    .tab:hover {
+      transform: translateY(-10px) scale(1.05);
+      box-shadow:0 12px 25px rgba(0,0,0,0.4);
+    }
+    .tab i { font-size:2.5rem; margin-bottom:10px; }
 
+    /* Footer */
     footer { text-align:center; padding:20px; background:#2c3e50; color:white; }
+
+    /* Animations */
+    @keyframes fadeInDown {0% {opacity:0; transform:translateY(-50px);} 100% {opacity:1; transform:translateY(0);} }
+    @keyframes fadeInUp {0% {opacity:0; transform:translateY(50px);} 100% {opacity:1; transform:translateY(0);} }
+    @keyframes pulse {0%, 100% { transform: scale(1);} 50% { transform: scale(1.05);} }
+    @keyframes gradientMove { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+    /* Responsive */
+    @media(max-width:768px){
+      .tabs { flex-direction:column; align-items:center;}
+      .tab { width:80%; height:150px; }
+      #home .university h2 { font-size:3rem; }
+    }
   </style>
 </head>
 <body>
 
-  <!-- Hamburger -->
+  <!-- Hamburger Button -->
   <button class="openbtn" onclick="openNav()">☰ Menu</button>
 
-  <!-- TOP RIGHT -->
-  <div class="auth-buttons">
-
-    <?php if(isset($_SESSION['username'])): ?>
-        <!-- USER LOGGED IN -->
-        <a href="profile.php" class="profile-btn">
-            👤 <?php echo $_SESSION['username']; ?>
-        </a>
-
-    <?php else: ?>
-        <!-- USER NOT LOGGED IN -->
-        <a href="login_Page/sign_In.php" class="signin">Sign In</a>
-        <a href="login_Page/Sign_Up.php" class="signup">Sign Up</a>
-    <?php endif; ?>
-
-  </div>
+  <!-- Sign In / Sign Up OR Profile Dropdown -->
+  <?php if(isset($_SESSION['user_name'])): ?>
+    <div class="profile-dropdown">
+      <button><?php echo $_SESSION['user_name']; ?> ▼</button>
+      <div class="profile-dropdown-content">
+        <a href="profile.php">Profile</a>
+        <a href="logout.php">Logout</a>
+      </div>
+    </div>
+  <?php else: ?>
+    <div class="auth-buttons">
+      <a href="login_Page/sign_In.php" class="signin">Sign In</a>
+      <a href="login_Page/Sign_Up.php" class="signup">Sign Up</a>
+    </div>
+  <?php endif; ?>
 
   <!-- Sidebar -->
   <div id="mySidebar" class="sidebar">
@@ -172,19 +218,28 @@ session_start();
     <a href="about.html">About</a>
   </div>
 
+  <!-- Home Section -->
   <section id="home">
     <div class="university">
       <img src="amity.logo.jpeg" alt="Amity University Patna Logo">
       <h2>Amity University Patna</h2>
     </div>
-
     <h1>Welcome to Lost & Found Portal</h1>
     <p>Quickly navigate to report lost items, found items, or learn more about us.</p>
 
     <div class="tabs">
-      <div class="tab" onclick="location.href='lost.html'">Report Lost Item</div>
-      <div class="tab" onclick="location.href='found.html'">Report Found Item</div>
-      <div class="tab" onclick="location.href='about.html'">About Us</div>
+      <div class="tab" onclick="location.href='lost.html'">
+        <i class="fas fa-search"></i>
+        Report Lost Item
+      </div>
+      <div class="tab" onclick="location.href='found.html'">
+        <i class="fas fa-hand-paper"></i>
+        Report Found Item
+      </div>
+      <div class="tab" onclick="location.href='about.html'">
+        <i class="fas fa-info-circle"></i>
+        About Us
+      </div>
     </div>
   </section>
 
@@ -193,9 +248,15 @@ session_start();
   </footer>
 
   <script>
-    function openNav(){ document.getElementById("mySidebar").style.width="250px"; }
-    function closeNav(){ document.getElementById("mySidebar").style.width="0"; }
-  </script>
+    function openNav() {
+      document.getElementById("mySidebar").style.width = "250px";
+      document.body.style.marginLeft = "250px";
+    }
 
+    function closeNav() {
+      document.getElementById("mySidebar").style.width = "0";
+      document.body.style.marginLeft = "0";
+    }
+  </script>
 </body>
 </html>
