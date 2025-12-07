@@ -76,7 +76,7 @@ button[type="submit"]:hover { background:#0056b3; }
 </div>
 <div class="options">
 <label><input type="checkbox"> Remember me</label>
-<a href="forgot_pass.html">Forgot password?</a>
+<a href="forgot_pass.php">Forgot password?</a>
 </div>
 <button type="submit">Sign In</button>
 </form>
