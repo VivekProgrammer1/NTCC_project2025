@@ -14,7 +14,7 @@ $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "ntcc_project"; // apna database name
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli("localhost", "root", "", "sign_in_system");
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
